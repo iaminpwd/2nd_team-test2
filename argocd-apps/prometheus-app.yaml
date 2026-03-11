@@ -5,15 +5,15 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  sources:
+  sources: # source가 아니라 sources(복수형)입니다.
     - chart: kube-prometheus-stack
       repoURL: https://prometheus-community.github.io/helm-charts
-      targetRevision: 51.2.0 # 운영 안정성을 위해 버전을 고정하는 것을 권장합니다.
+      targetRevision: 51.2.0
       helm:
         valueFiles:
-          - $values/gitops/monitoring/prometheus-stack-values.yaml
-    - repoURL: https://github.com/팀명/aws-k8s-ansible-4weeks.git # 본인들의 실제 Git 주소로 변경하세요!
-      targetRevision: main
+          - $values/monitoring/prometheus-stack.yaml # $values는 아래 두 번째 소스를 의미합니다.
+    - repoURL: https://github.com/iaminpwd/2nd_team-test2.git # 본인의 실제 Git 주소로 꼭 변경하세요!
+      targetRevision: main # 테스트용 브랜치가 있다면 그 이름을 적으세요
       ref: values
   destination:
     server: https://kubernetes.default.svc

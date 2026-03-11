@@ -5,16 +5,19 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    chart: cost-analyzer
-    repoURL: https://kubecost.github.io/cost-analyzer/
-    targetRevision: 2.3.1
-    helm:
-      valueFiles:
-        - ../monitoring/kubecost-values.yaml # 위에서 만든 설정 파일 참조
+  sources:
+    - chart: cost-analyzer
+      repoURL: https://kubecost.github.io/cost-analyzer/
+      targetRevision: 2.3.1
+      helm:
+        valueFiles:
+          - $values/monitoring/kubecost-values.yaml
+    - repoURL: https://github.com/iaminpwd/2nd_team-test2.git # 본인의 실제 Git 주소로 꼭 변경하세요!
+      targetRevision: main
+      ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: monitoring # {{ kubecost_namespace }} 반영
+    namespace: monitoring
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
