@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prometheus-stack
+  name: kubecost
   namespace: argocd
 spec:
   project: default
-  sources: 
-    - chart: kube-prometheus-stack
-      repoURL: https://prometheus-community.github.io/helm-charts
-      targetRevision: 51.2.0
+  sources:
+    - chart: cost-analyzer
+      repoURL: https://kubecost.github.io/cost-analyzer/
+      targetRevision: 2.3.1
       helm:
         valueFiles:
-          - $values/monitoring/prometheus-stack.yaml # $values는 아래 두 번째 소스를 의미합니다.
+          - $values/monitoring/kubecost/values.yaml
     - repoURL: https://github.com/iaminpwd/2nd_team-test2.git # 본인의 실제 Git 주소로 꼭 변경하세요!
-      targetRevision: main # 테스트용 브랜치가 있다면 그 이름을 적으세요
+      targetRevision: main
       ref: values
   destination:
     server: https://kubernetes.default.svc
