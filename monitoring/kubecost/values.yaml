@@ -26,6 +26,11 @@ kubecostFrontend:
 kubecostProductConfigs:
   grafanaURL: ""
 
+  # AWS Cost Explorer 연동을 위한 설정
+  projectID: "719030485166" 
+  awsServiceKeyName: ""       
+  awsServiceKeyPassword: ""   
+
 forecasting:
   enabled: false
 
@@ -48,10 +53,13 @@ kubecostAggregator:
       memory: "512Mi"
 
 customPricing:
-  enabled: true
-  cpu: "0.0316"
-  ram: "0.0042"
-  storage: "0.0001"
+  enabled: false
 
 nodeSelector:
-  "kubernetes.io/hostname": "k3s-worker-1"
+  dedicated: "monitoring"
+
+tolerations:
+  - key: dedicated
+    operator: Equal
+    value: monitoring
+    effect: NoSchedule

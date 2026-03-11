@@ -3,7 +3,12 @@ prometheus:
     scrapeInterval: "1m"
     evaluationInterval: "1m"
     nodeSelector:
-      kubernetes.io/hostname: "k3s-worker-1"
+      dedicated: "monitoring"
+    tolerations:
+      - key: dedicated
+        operator: Equal
+        value: monitoring
+        effect: NoSchedule
     externalLabels:
       cluster_id: "finops-k3s"
     retention: 10d
@@ -26,7 +31,12 @@ prometheus:
 
 prometheusOperator:
   nodeSelector:
-    kubernetes.io/hostname: "k3s-worker-1"
+    dedicated: "monitoring"
+  tolerations:
+    - key: dedicated
+      operator: Equal
+      value: monitoring
+      effect: NoSchedule
 
 prometheus-node-exporter:
   prometheus:
@@ -43,7 +53,12 @@ prometheus-node-exporter:
 grafana:
   adminPassword: "1234"
   nodeSelector:
-    kubernetes.io/hostname: "k3s-worker-1"
+    dedicated: "monitoring"
+  tolerations:
+    - key: dedicated
+      operator: Equal
+      value: monitoring
+      effect: NoSchedule
   persistence:
     enabled: true
     type: pvc

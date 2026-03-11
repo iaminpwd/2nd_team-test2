@@ -12,7 +12,7 @@ spec:
       helm:
         valueFiles:
           - $values/monitoring/kubecost/values.yaml
-    - repoURL: https://github.com/iaminpwd/2nd_team-test2.git # 본인의 실제 Git 주소로 꼭 변경하세요!
+    - repoURL: https://github.com/iaminpwd/2nd_team-test2.git
       targetRevision: main
       ref: values
   destination:
