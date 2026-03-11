@@ -12,6 +12,7 @@ prometheus:
     externalLabels:
       cluster_id: "finops-k3s"
     retention: 10d
+    retentionSize: "4GB"
     storageSpec:
       volumeClaimTemplate:
         spec:
