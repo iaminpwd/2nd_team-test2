@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  sources: # source가 아니라 sources(복수형)입니다.
+  sources: 
     - chart: kube-prometheus-stack
       repoURL: https://prometheus-community.github.io/helm-charts
       targetRevision: 51.2.0
