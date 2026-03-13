@@ -20,6 +20,18 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
+    
+  ignoreDifferences:
+    - group: "apps"
+      kind: Deployment
+      jsonPointers:
+        - /spec/template/metadata/annotations
+    - group: ""
+      kind: Service
+      jsonPointers:
+        - /metadata/annotations
+        - /spec/clusterIP
+
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
