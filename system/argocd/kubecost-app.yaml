@@ -7,11 +7,15 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
+  
+  # --- 하나로 완벽하게 통합된 예외 처리 블록 ---
   ignoreDifferences:
     - group: "apps"
       kind: Deployment
       jsonPointers:
         - /spec/template/metadata/annotations
+        - /metadata/annotations/helm-rollout-restarter
+        - /spec/template/metadata/annotations/helm-rollout-restarter
     - group: ""
       kind: Service
       jsonPointers:
@@ -20,6 +24,8 @@ spec:
       kind: ClusterRole
       jsonPointers:
         - /rules
+  # ---------------------------------------------
+
   sources:
     - chart: cost-analyzer
       repoURL: https://kubecost.github.io/cost-analyzer/
@@ -30,23 +36,11 @@ spec:
     - repoURL: https://github.com/iaminpwd/2nd_team-test2.git
       targetRevision: main
       ref: values
+  
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
-
-  ignoreDifferences:
-    - group: "apps"
-      kind: Deployment
-      jsonPointers:
-        # 1. Deployment 자체의 어노테이션 무시 (이번에 발견한 범인)
-        - /metadata/annotations/helm-rollout-restarter
-        # 2. 파드 템플릿의 어노테이션 무시
-        - /spec/template/metadata/annotations/helm-rollout-restarter
-    - group: ""
-      kind: Service
-      jsonPointers:
-        - /spec/clusterIP
-
+  
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
