@@ -7,6 +7,19 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
+  ignoreDifferences:
+    - group: "apps"
+      kind: Deployment
+      jsonPointers:
+        - /spec/template/metadata/annotations
+    - group: ""
+      kind: Service
+      jsonPointers:
+        - /spec/clusterIP
+    - group: "rbac.authorization.k8s.io"
+      kind: ClusterRole
+      jsonPointers:
+        - /rules
   sources:
     - chart: cost-analyzer
       repoURL: https://kubecost.github.io/cost-analyzer/
@@ -20,7 +33,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
-    
+
   ignoreDifferences:
     - group: "apps"
       kind: Deployment
