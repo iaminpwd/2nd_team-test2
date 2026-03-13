@@ -38,11 +38,13 @@ spec:
     - group: "apps"
       kind: Deployment
       jsonPointers:
-        - /spec/template/metadata/annotations
+        # 1. Deployment 자체의 어노테이션 무시 (이번에 발견한 범인)
+        - /metadata/annotations/helm-rollout-restarter
+        # 2. 파드 템플릿의 어노테이션 무시
+        - /spec/template/metadata/annotations/helm-rollout-restarter
     - group: ""
       kind: Service
       jsonPointers:
-        - /metadata/annotations
         - /spec/clusterIP
 
   syncPolicy:
