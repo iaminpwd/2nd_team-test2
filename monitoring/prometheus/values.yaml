@@ -19,7 +19,7 @@ prometheus:
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
-              storage: 5Gi
+              storage: 6Gi
     resources:
       requests:
         cpu: "200m"
