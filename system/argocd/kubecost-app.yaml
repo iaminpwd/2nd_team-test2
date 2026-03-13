@@ -14,6 +14,7 @@ spec:
       kind: Deployment
       jsonPointers:
         - /spec/template/metadata/annotations
+        - /spec/template/metadata/labels/helm-rollout-restarter
         - /metadata/annotations/helm-rollout-restarter
         - /spec/template/metadata/annotations/helm-rollout-restarter
     - group: ""
